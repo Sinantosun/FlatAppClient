@@ -1,0 +1,616 @@
+// Değişkenler
+$primary-color: #6e8aeb;
+$primary-light: #8a6eeb;
+$text-primary: #2c3e50;
+$text-secondary: #7f8c8d;
+$border-color: #e0e0e0;
+$background-light: #f8f9fa;
+
+// Ana stiller
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: white;
+  padding: 20px;
+}
+
+.auth-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  min-height: 600px;
+}
+
+// Resim bölümü
+.auth-image {
+  flex: 1;
+  background: linear-gradient(135deg, #6e8aeb 0%, #8a6eeb 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  a{
+    color: white;
+    font-weight: bold;
+  }
+  
+  .image-content {
+    text-align: center;
+    z-index: 1;
+    transition: transform 0.4s ease;
+    
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 300px;
+      line-height: 1.5;
+    }
+  }
+  
+  .image-placeholder {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease;
+    
+    i {
+      font-size: 80px;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Form bölümü
+.auth-content {
+  flex: 1;
+//   padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  position: relative;
+  overflow: hidden;
+
+  .mode-toggle-mobile {
+    text-align: center;
+    transition: transform 0.4s ease;
+    width: 100%;
+    background: linear-gradient(135deg, #6e8aeb 0%, #8a6eeb 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: none;
+    p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 0;
+      a{
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .form-container {
+    max-width: 450px;
+    margin: 0 auto;
+    width: 100%;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+  }
+  
+  // Form geçiş animasyonları
+  .form-login, .form-register {
+    transition: all 0.4s ease;
+  }
+  
+  .form-login {
+    opacity: 1;
+    transform: translateX(0);
+    
+    &.hidden {
+      opacity: 0;
+      transform: translateX(-20px);
+      position: absolute;
+      width: 100%;
+      pointer-events: none;
+    }
+  }
+  
+  .form-register {
+    opacity: 1;
+    transform: translateX(0);
+    
+    &.hidden {
+      opacity: 0;
+      transform: translateX(20px);
+      position: absolute;
+      width: 100%;
+      pointer-events: none;
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Logo stilleri
+.logo {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  
+  &-icon {
+    background: linear-gradient(135deg, #6e8aeb 0%, #8a6eeb 100%);
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 8px 20px rgba(106, 138, 235, 0.3);
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  &-text {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6e8aeb 0%, #8a6eeb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// Başlık ve divider
+h4 {
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: $text-primary;
+  font-size: 26px;
+  text-align: center;
+}
+
+hr {
+  height: 1px;
+  background: linear-gradient(to right, transparent, $border-color, transparent);
+  margin: 25px 0;
+  border: none;
+}
+
+// Form stilleri
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: $text-primary;
+    font-size: 14px;
+  }
+}
+
+.input-with-icon {
+  position: relative;
+  
+  i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    z-index: 1;
+    font-size: 16px;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px 20px 15px 50px;
+  border-radius: 10px;
+  border: 1px solid $border-color;
+  background-color: white;
+  color: $text-primary;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: #bdc3c7;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba(110, 138, 235, 0.15);
+  }
+}
+
+// Buton stilleri
+.btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &-block {
+    display: block;
+  }
+  
+  &-primary {
+    background: linear-gradient(135deg, #6e8aeb 0%, #8a6eeb 100%);
+    color: white;
+    box-shadow: 0 8px 20px rgba(106, 138, 235, 0.25);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(106, 138, 235, 0.35);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Kayıt ol bağlantısı
+.text-muted {
+  color: $text-secondary !important;
+  font-size: 15px;
+  margin-top: 25px;
+  text-align: center;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Yükleniyor durumu
+.loading-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s ease-in-out infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Hata mesajı
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin: 15px 0;
+  text-align: center;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border-left: 4px solid #e74c3c;
+  
+  i {
+    margin-right: 8px;
+  }
+}
+
+// Başarı mesajı
+.success-message {
+  color: #27ae60;
+  font-size: 14px;
+  margin: 15px 0;
+  text-align: center;
+  background: rgba(39, 174, 96, 0.1);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border-left: 4px solid #27ae60;
+  
+  i {
+    margin-right: 8px;
+  }
+}
+
+// Mod değiştirme bağlantısı
+.toggle-mode {
+  color: $primary-color;
+  cursor: pointer;
+  font-weight: 600;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Animasyonlar
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  animation: fadeIn 0.5s ease forwards;
+  
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.1s * $i;
+    }
+  }
+}
+
+// Responsive tasarım
+@media (max-width: 1024px) {
+  .auth-container {
+    max-width: 900px;
+  }
+  
+  .auth-image {
+    .image-content {
+      h2 {
+        font-size: 24px;
+      }
+      
+      p {
+        font-size: 15px;
+      }
+    }
+    
+    .image-placeholder {
+      max-width: 320px;
+      height: 240px;
+      
+      i {
+        font-size: 70px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-wrapper {
+    // padding: 15px;
+  }
+
+  .mode-toggle-mobile{
+    display: block !important;
+  }
+  
+  .auth-container {
+    flex-direction: column;
+    max-width: 500px;
+    min-height: auto;
+  }
+  
+  .auth-image {
+    padding: 30px 20px;
+    order: 1;
+    
+    .image-content {
+      h2 {
+        font-size: 22px;
+      }
+    }
+    
+    .image-placeholder {
+      display: none;
+      i {
+        font-size: 60px;
+      }
+    }
+  }
+  
+  .auth-content {
+    // padding: 30px 20px;
+    order: 2;
+    width: 100% !important;
+    .form-container {
+     width: 100%;
+        .form-login{
+            width: 100%; 
+        }
+    }
+  }
+
+  .mode-toggle-desktop{
+    display: none;
+  }
+  
+  .logo {
+    margin-bottom: 25px;
+    
+    &-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+    
+    &-text {
+      font-size: 24px;
+    }
+  }
+  
+  h4 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-wrapper {
+    padding: 10px;
+  }
+  
+  .auth-container {
+    border-radius: 10px;
+  }
+  
+  .auth-image {
+    padding: 25px 15px;
+    
+    .image-content {
+      h2 {
+        font-size: 20px;
+      }
+      
+      p {
+        font-size: 14px;
+        max-width: 250px;
+      }
+    }
+    
+    .image-placeholder {
+      max-width: 240px;
+      height: 180px;
+      
+      i {
+        font-size: 50px;
+      }
+    }
+  }
+  
+  .auth-content {
+    // padding: 25px 15px;
+  }
+  
+  .logo {
+    margin-bottom: 20px;
+    
+    &-icon {
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+    }
+    
+    &-text {
+      font-size: 22px;
+    }
+  }
+  
+  h4 {
+    font-size: 20px;
+  }
+  
+  .form-control {
+    padding: 14px 16px 14px 45px;
+    font-size: 14px;
+  }
+  
+  .btn {
+    padding: 15px;
+    font-size: 15px;
+  }
+  
+  .text-muted {
+    font-size: 14px;
+  }
+}
+
+// Küçük ekranlar için ek iyileştirmeler
+@media (max-width: 360px) {
+  .auth-image {
+    .image-placeholder {
+      max-width: 200px;
+      height: 150px;
+      
+      i {
+        font-size: 40px;
+      }
+    }
+  }
+  
+  .input-with-icon i {
+    left: 15px;
+    font-size: 14px;
+  }
+  
+  .form-control {
+    padding: 12px 14px 12px 40px;
+  }
+}

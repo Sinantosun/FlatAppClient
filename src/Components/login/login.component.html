@@ -1,24 +1,127 @@
-
 <div class="auth-wrapper">
-	<div class="auth-content text-center">
-		<div class="card borderless">
-			<div class="row align-items-center ">
-				<div class="col-md-12">
-					<div class="card-body">
-						<h4 class="mb-3 f-w-400">Oturum Aç</h4>
-						<hr>
-						<div class="form-group mb-3">
-							<input type="text" class="form-control" name="userName"  [(ngModel)]="LoginuserRequestModel.userName" placeholder="Kullanıcı Adınız">
-						</div>
-						<div class="form-group mb-4">
-							<input type="password" class="form-control" name="password" [(ngModel)]="LoginuserRequestModel.password"  placeholder="Şifreniz">
-						</div>
-						<button class="btn btn-block btn-primary mb-4" (click)="SignIn()">Giriş Yap</button>
-						<hr>
-						<p class="mb-0 text-muted">Hesabınız yok mu? <a  [routerLink]="['/register']" routerLinkActive="router-link-active"  class="f-w-400">Kaydol</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="auth-container">
+    <!-- Sol taraftaki resim/illüstrasyon alanı -->
+    <div class="auth-image">
+      <div class="image-content">
+        <h2>{{ isRegisterMode ? 'ChatApp Ailesine Katılın' : 'ChatApp\'e Hoş Geldiniz' }}</h2>
+        <p>{{ isRegisterMode ? 'Hesabınızı oluşturun ve modern mesajlaşma deneyimine başlayın' : 'Modern ve güvenli mesajlaşma deneyimi için hesabınıza giriş yapın' }}</p>
+      </div>
+      <div class="image-placeholder">
+        <i class="fas {{ isRegisterMode ? 'fa-user-plus' : 'fa-comments' }}"></i>
+      </div>
+      <div class="mode-toggle-desktop">
+		  <p>
+			{{ isRegisterMode ? 'Zaten hesabınız var mı?' : 'Hesabınız yok mu?' }} 
+			<a href="javascript:void(0)" (click)="toggleMode()" class="toggle-mode">
+			  {{ isRegisterMode ? 'Giriş yapın' : 'Hemen kaydolun' }}
+			</a>
+		  </p>
+	  </div>
+    </div>
+    
+    <!-- Sağ taraftaki form alanı -->
+    <div class="auth-content p-0">
+      <div class="form-container p-3">
+        <div class="logo mt-4">
+          <div class="logo-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="logo-text">ChatApp</div>
+        </div>
+        
+        <h4 class="mb-4 mt-5 f-w-400">{{ isRegisterMode ? 'Yeni Hesap Oluştur' : 'Hesabınıza Giriş Yapın' }}</h4>
+        
+        <!-- Başarı mesajı -->
+        <div *ngIf="successMessage" class="success-message">
+          <i class="fas fa-check-circle"></i> {{ successMessage }}
+        </div>
+        
+        <!-- Hata mesajı -->
+        <div *ngIf="errorMessage" class="error-message">
+          <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+        </div>
+        
+        <!-- LOGIN FORM -->
+        <div class="form-login" [class.hidden]="isRegisterMode">
+          <div class="form-group">
+            <label for="username">Kullanıcı Adı</label>
+            <div class="input-with-icon">
+              <i class="fas fa-user"></i>
+              <input type="text" class="form-control" id="username" name="userName" 
+                     [(ngModel)]="LoginuserRequestModel.userName" placeholder="Kullanıcı adınızı girin">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Şifre</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="form-control" id="password" name="password" 
+                     [(ngModel)]="LoginuserRequestModel.password" placeholder="Şifrenizi girin">
+            </div>
+          </div>
+          
+          <button class="btn btn-block btn-primary" (click)="SignIn()" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="loading-spinner"></span>
+            {{ isLoading ? 'Giriş Yapılıyor...' : 'Giriş Yap' }}
+          </button>
+          
+          <hr>
+          <!-- <p class="mb-0 text-muted">Hesabınızı mı unuttunuz? <a href="#" class="f-w-400">Şifremi Sıfırla</a></p> -->
+        </div>
+        
+        <!-- REGISTER FORM -->
+        <div class="form-register" [class.hidden]="!isRegisterMode">
+          <div class="form-group">
+            <label for="fullname">Adınız Soyadınız</label>
+            <div class="input-with-icon">
+              <i class="fas fa-user-circle"></i>
+              <input type="text" class="form-control" id="fullname" name="NameSurname" 
+                     [(ngModel)]="CreateUserRequestModel.NameSurname" placeholder="Adınız ve soyadınız">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="reg-username">Kullanıcı Adı</label>
+            <div class="input-with-icon">
+              <i class="fas fa-at"></i>
+              <input type="text" class="form-control" id="reg-username" name="userName" 
+                     [(ngModel)]="CreateUserRequestModel.userName" placeholder="Kullanıcı adınız">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="reg-password">Şifre</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="form-control" id="reg-password" name="password" 
+                     [(ngModel)]="CreateUserRequestModel.password" placeholder="Şifreniz">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="reg-password-re">Şifre Tekrar</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="form-control" id="reg-password-re" name="passwordRe" 
+                     [(ngModel)]="CreateUserRequestModel.passwordRe" placeholder="Şifrenizi tekrar girin">
+            </div>
+          </div>
+          
+          <button class="btn btn-block btn-primary mb-5" (click)="RegisterUser()" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="loading-spinner"></span>
+            {{ isLoading ? 'Hesap Oluşturuluyor...' : 'Kaydol' }}
+          </button>
+        </div>
+      </div>
+	  <div class="mode-toggle-mobile">
+		  <p>
+			{{ isRegisterMode ? 'Zaten hesabınız var mı?' : 'Hesabınız yok mu?' }} 
+			<a href="javascript:void(0)" (click)="toggleMode()" class="toggle-mode">
+			  {{ isRegisterMode ? 'Giriş yapın' : 'Hemen kaydolun' }}
+			</a>
+		  </p>
+	  </div>
+    </div>
+  </div>
 </div>
