@@ -1,0 +1,193 @@
+<app-sidebar></app-sidebar>
+<app-header></app-header>
+
+<div class="pcoded-main-container ">
+  <div class="pcoded-content">
+    <div class="row">
+      <div class="col-lg-3 col-md-12" *ngIf="lastConservationRequestModel.length>0; else noData2">
+        <div class="card">
+          <div class="card-body last-message-box">
+            <h5 class="mb-3">Son Konuşmalar</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex align-items-center conversation-item"
+                *ngFor="let item of lastConservationRequestModel; let i = index">
+                <img src="https://testprojectwebapi.sinantosun.com/Images/userprofilephoto.png" alt="user image"
+                  class="rounded-circle border me-2" width="40" height="40">
+                <div class="flex-grow-1 p-2">
+                  <strong class="mb-2" style="text-transform: capitalize;">{{item.nameSurname}}</strong>
+                  <p class="mb-2 mt-1 text-truncate" style="max-width: 150px;">{{item.message}}</p>
+                  <p class="text-muted">{{item.date}}</p>
+                  <button class="btn btn-outline-primary btn-sm"
+                    (click)="StartConservation(item.reciverId,item.conservationId,i)">Sohbet</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9  col-md-12 " *ngIf="coservationStart; else noData">
+        <div class="card chat-card ">
+          <div class="card-header sticky-top bg-white border-bottom d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <img src="https://testprojectwebapi.sinantosun.com/Images/userprofilephoto.png" alt="user image"
+                class="img-radius wid-40 border me-2">
+              <div>
+                <div class="fw-bolder">{{nameSurname}}</div>
+                <div class="text-muted small">Son Görülme: {{LastSeenDate}}</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <input type="text" class="form-control form-control-sm me-2" placeholder="Mesaj Ara...">
+              <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-search"></i></button>
+            </div>
+          </div>
+          <div class="card-body message-box" #messageContainer #scrollMe>
+            <div class="text-center mb-3">
+              <button class="btn btn-primary btn-sm" >
+                Daha fazla yükle
+              </button>
+            </div>
+
+            <div *ngFor="let item of conservationRequestModel">
+              <div class="row m-b-20 received-chat" *ngIf="!item.isSender">
+                <div class="col-auto p-r-0">
+                  <img src="https://testprojectwebapi.sinantosun.com/Images/userprofilephoto.png" alt="user image"
+                    class="img-radius wid-40 border">
+                </div>
+                <div class="col">
+                  <div class="msg">
+                    <p class="m-b-0">{{item.message}}</p>
+                    <p class="text-right text-muted mt-2 m-b-0">{{item.date}} </p>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row m-b-20 send-chat" *ngIf="item.isSender">
+                <div class="col">
+                  <div class="msg">
+                    <p class="m-b-0">{{item.message}}</p>
+                    <p class="text-right m-b-0">{{item.date}} <i [ngClass]="{
+                    'text-muted': item.messageDeliveryType == 0,
+                    'text-primary': item.messageDeliveryType == 1,
+                    'text-success': item.messageDeliveryType == 2
+                    }" class="bi  bi-check-all h3 message-delivery-type" style="top:4px; position: relative;"></i></p>
+                  </div>
+                </div>
+                <div class="col-auto p-l-0">
+                  <img src="https://testprojectwebapi.sinantosun.com/Images/userprofilephoto.png" alt="user image"
+                    class="img-radius wid-40 border">
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12" *ngIf="showMessageIcon">
+              <span (click)="scrollToBottom()" class="new-message-arrow-text"><i class="bi bi-arrow-down"></i> Yeni
+                Mesaj</span>
+            </div>
+            <div class="col-md-6 ml-2 mb-2">
+              <span class="typing-blink" *ngIf="isTyping">Yazıyor..</span>
+            </div>
+            <div class="col-md-11">
+              <div class="form-group ml-2">
+                <input type="text" [(ngModel)]="message" (keydown.enter)="Send()" (input)="UserTyping()" name="message"
+                  class="form-control w-100">
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <button (click)="Send()" class="btn btn-success w-100  btn-sm h text-center"
+                  style="height:48px; right: 10px; ; position: relative;"><i class="bi bi-send"></i> Gönder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <ng-template #noData>
+        <div class="col-lg-9 col-md-9 " style="height: 82vh;">
+          <div class="card chat-card text-center p-4"
+            style="width: 100%;  height: 100%; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center text-center"
+              style="height: 100%;">
+              <div class="mb-3">
+                <i class="fas fa-comments fa-3x text-muted"></i>
+              </div>
+              <h5 class="card-title mb-2">Henüz Konuşma Başlamadı</h5>
+              <p class="card-text mb-3 text-muted">Burada konuşmalar başladığında görebileceksiniz. <br>Sağ üstte
+                bulunan <b>"UserId"</b> kodunu konuşma yapmak istediğiniz kişiyle paylaşıp hemen bir konuşma
+                başlatabilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #noData2>
+        <div class="col-lg-3 col-md-12">
+          <div class="card">
+            <div class="card-body ">
+              <h5 class="mb-3">Son Konuşmalar</h5>
+              <div class="alert alert-info">
+                Henüz Hiç Konuşma yok
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Yeni Sohbet</h5>
+        <button type="button" class="close" (click)="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>User Id</label>
+          <input class="form-control mb-3" [(ngModel)]="userId" name="userId"
+            placeholder="Mesaj göndermek istediğiniz kişinin Userid bilgisini giriniz." type="text" />
+          <button type="button" *ngIf="!IsActive" (click)="GetUserByGuidId()" class="btn btn-primary btn-sm">Kişi
+            Ara</button>
+        </div>
+        <div class="form-group" *ngIf="IsActive">
+          <label>Mesaj Gönderilecek Kişi: <span class="fw-bold">{{reciverNameSurname}}</span></label>
+          <p>Mesajınız: </p>
+          <textarea class="form-control mb-3" rows="10" [(ngModel)]="sendFirstMessageRequestModel.message"
+            name="message" placeholder="Mesajınızı yazınız." type="text"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" (click)="closeModal()">Close</button>
+        <button *ngIf="IsActive" type="button" (click)="sendMessage()" class="btn btn-success btn-sm">Gönder</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="input-group m-t-15">
+              <input type="text" name="task-insert" class="form-control" id="Project" placeholder="Send message">
+              <div class="input-group-append">
+                <button class="btn btn-primary">
+                  <i class="feather icon-message-circle"></i>
+                </button>
+              </div>
+            </div> -->
+
+<div id="preloader" *ngIf="loader">
+  <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;">
+  </div>
+  <p>Yükleniyor Lütfen Bekleyiniz.</p>
+</div>

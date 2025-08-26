@@ -1,13 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
+
 <head>
   <meta charset="utf-8">
-  <title>FlatApp</title>
+  <title>ChatApp</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
+
 <body>
+  <!-- Cookie Banner -->
+  <div id="cookie-banner">
+    <p>Bu site çerezleri kullanır. Kullanıcı adı, soyad ve görsel bilgileriniz yalnızca site içi kullanım içindir.</p>
+    <div>
+      <a id="policy-link">Politikayı Oku</a>
+      <button id="cookie-accept">Anladım</button>
+    </div>
+  </div>
+
+  <!-- Cookie Policy Modal -->
+  <div id="cookie-modal">
+    <div class="modal-content">
+      <button class="close-btn">&times;</button>
+      <h2>Çerez Politikası</h2>
+      <p>
+        Bu site, kullanıcı deneyimini geliştirmek ve site güvenliğini sağlamak amacıyla çerezler (cookies)
+        kullanmaktadır.
+        Çerezler sayesinde kullanıcıların site üzerindeki tercihleri hatırlanır. Kullanıcı adı, soyadı ve profil görseli
+        gibi bilgiler güvenli bir şekilde saklanır ve yalnızca giriş ve kişiselleştirme amacıyla kullanılır.
+      </p>
+      <p>
+        Bu siteyi kullanabilmek için bazı çerezler zorunludur. Bu çerezler olmadan site bazı özelliklerini düzgün
+        çalıştırmayabilir. Sitede paylaştığınız ad, soyad ve görsel gibi bilgiler yalnızca site içi kullanım amaçlıdır
+        ve üçüncü kişilerle paylaşılmaz.
+      </p>
+      <p>
+        Siteyi kullanmaya devam ederek çerez kullanımını ve bu politikanın koşullarını kabul etmiş olursunuz.
+      </p>
+    </div>
+  </div>
+
+
+
   <app-root></app-root>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const banner = document.getElementById("cookie-banner");
+    const acceptBtn = document.getElementById("cookie-accept");
+    const policyLink = document.getElementById("policy-link");
+    const modal = document.getElementById("cookie-modal");
+    const closeBtn = modal.querySelector(".close-btn");
+
+    // Daha önce kabul edilmişse gösterme
+    if(localStorage.getItem("cookieAccepted")) {
+      banner.style.display = "none";
+    }
+
+    // Banner kabul etme
+    acceptBtn.addEventListener("click", function() {
+      localStorage.setItem("cookieAccepted", "true");
+      banner.style.display = "none";
+    });
+
+    // Politikayı açma
+    policyLink.addEventListener("click", function() {
+      modal.style.display = "flex";
+    });
+
+    // Modal kapatma
+    closeBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    // Modal dışına tıklayınca kapat
+    window.addEventListener("click", function(e) {
+      if(e.target === modal) modal.style.display = "none";
+    });
+  });
+</script>
 </body>
+
 </html>

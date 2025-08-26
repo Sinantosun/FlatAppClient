@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+  /* Tam ekran banner */
+  #cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+  }
+
+  #cookie-banner p {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  #cookie-banner button {
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    transition: background 0.3s;
+  }
+
+  #cookie-banner button:hover {
+    background: #0056b3;
+  }
+
+  #cookie-banner a {
+    color: #ffdd57;
+    margin-left: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Modal için stil */
+  #cookie-modal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+
+  #cookie-modal .modal-content {
+    background: white;
+    color: #333;
+    padding: 2rem;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    text-align: left;
+  }
+
+  #cookie-modal .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #cookie-modal h2 {
+    margin-top: 0;
+  }
+
+  #cookie-modal p {
+    line-height: 1.5;
+  }

@@ -1,0 +1,24 @@
+
+<div class="auth-wrapper">
+	<div class="auth-content text-center">
+		<div class="card borderless">
+			<div class="row align-items-center ">
+				<div class="col-md-12">
+					<div class="card-body">
+						<h4 class="mb-3 f-w-400">Oturum Aç</h4>
+						<hr>
+						<div class="form-group mb-3">
+							<input type="text" class="form-control" name="userName"  [(ngModel)]="LoginuserRequestModel.userName" placeholder="Kullanıcı Adınız">
+						</div>
+						<div class="form-group mb-4">
+							<input type="password" class="form-control" name="password" [(ngModel)]="LoginuserRequestModel.password"  placeholder="Şifreniz">
+						</div>
+						<button class="btn btn-block btn-primary mb-4" (click)="SignIn()">Giriş Yap</button>
+						<hr>
+						<p class="mb-0 text-muted">Hesabınız yok mu? <a  [routerLink]="['/register']" routerLinkActive="router-link-active"  class="f-w-400">Kaydol</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

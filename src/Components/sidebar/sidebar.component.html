@@ -1,0 +1,50 @@
+<nav class="pcoded-navbar " [ngClass]="{ 'navbar-collapsed': !isCollapsed }">
+    <div class="navbar-wrapper">
+        <div class="navbar-content scroll-div">
+
+            <!-- Kullanıcı -->
+            <div class="main-menu-header">
+                <img class="img-radius" src="https://testprojectwebapi.sinantosun.com/Images/userprofilephoto.png" style="right: 3px; top: 10px; position: relative;" alt="User-Profile-Image">
+              <span *ngIf="isCollapsed"> {{nameSurname}}</span>
+              </div>
+
+            <!-- Menü -->
+           <ul class="nav pcoded-inner-navbar">
+
+  <!-- Sohbetler -->
+  <li class="nav-item">
+    <a href="index.html" class="nav-link">
+      <span class="pcoded-micon"><i class="feather icon-message-circle"></i></span>
+      <span class="pcoded-mtext">Sohbetler</span>
+    </a>
+  </li>
+
+  <!-- Durumlar -->
+  <li class="nav-item">
+    <a href="status.html" class="nav-link">
+      <span class="pcoded-micon"><i class="feather icon-camera"></i></span>
+      <span class="pcoded-mtext">Durumlar</span>
+    </a>
+  </li>
+
+  <!-- Yeni -->
+  <li class="nav-item pcoded-hasmenu" [ngClass]="{ 'active': isNewMenuOpen }">
+    <a href="javascript:void(0)" class="nav-link" (click)="toggleNewMenu()">
+      <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
+      <span class="pcoded-mtext">Yeni</span>
+      
+    </a>
+    <ul class="pcoded-submenu" [ngClass]="{ 'd-block': isNewMenuOpen, 'd-none': !isNewMenuOpen }">
+      <li><a (click)="openModal()" style="cursor: pointer;">Sohbet</a></li>
+      <li><a href="new-group.html">Grup</a></li>
+    </ul>
+  </li>
+
+</ul>
+
+
+        </div>
+    </div>
+</nav>
+
+
